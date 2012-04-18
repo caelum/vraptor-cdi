@@ -1,0 +1,2 @@
+org.vraptor.cdi.ControllerScannerExtension
+org.vraptor.cdi.ControllerInterceptorsExtension
