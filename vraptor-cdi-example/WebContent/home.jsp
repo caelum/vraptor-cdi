@@ -1,0 +1,1 @@
+<h1>Hello, VRaptor CDI!</h1>
