@@ -1,13 +1,12 @@
-package org.vraptor.impl;
+package org.vraptor.interceptor;
 
-import org.vraptor.ControllerInterceptor;
 
 public class InterceptorStack {
 
 	private final ControllerInterceptor nextInterceptor;
 	private final InterceptorStack previousStack;
 
-	InterceptorStack(ControllerInterceptor nextInterceptor, InterceptorStack previousStack) {
+	public InterceptorStack(ControllerInterceptor nextInterceptor, InterceptorStack previousStack) {
 		this.nextInterceptor = nextInterceptor;
 		this.previousStack = previousStack;
 	}

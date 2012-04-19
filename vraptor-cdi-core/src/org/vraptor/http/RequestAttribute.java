@@ -1,17 +1,15 @@
-package org.vraptor;
+package org.vraptor.http;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.enterprise.inject.Stereotype;
+import javax.inject.Qualifier;
 
-@Stereotype
-@Controller
-
-@Target({ElementType.TYPE, ElementType.PACKAGE, ElementType.FIELD})
+@Qualifier
+@Target({ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MainController {
+public @interface RequestAttribute {
 
 }

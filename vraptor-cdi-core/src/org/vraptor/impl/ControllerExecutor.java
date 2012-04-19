@@ -6,9 +6,10 @@ import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 
-import org.vraptor.ControllerInterceptor;
-import org.vraptor.cdi.CDIUtils;
 import org.vraptor.events.BeforeControllerInvocationEvent;
+import org.vraptor.impl.cdi.CDIUtils;
+import org.vraptor.interceptor.ControllerInterceptor;
+import org.vraptor.interceptor.InterceptorStack;
 
 public class ControllerExecutor implements ControllerInterceptor {
 

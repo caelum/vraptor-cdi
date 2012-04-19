@@ -4,7 +4,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-import org.vraptor.MainController;
+import org.vraptor.RootController;
 import org.vraptor.extensions.PathNameStrategy;
 import org.vraptor.extensions.RemovableControllerExtension;
 
@@ -12,8 +12,8 @@ import org.vraptor.extensions.RemovableControllerExtension;
  * Hello#hi                ->  /hello/hi
  * MyController#home       ->  /my/home
  * Hello#index             ->  /hello
- * [@MainController]#page  ->  /page
- * [@MainController]#index ->  /
+ * [@RootController]#page  ->  /page
+ * [@RootController]#index ->  /
  *  
  * @author sergio
  */
@@ -28,7 +28,7 @@ public class DefaultPathNameStrategy implements PathNameStrategy {
 		String baseName = route.getControllerClass().getSimpleName();
 		String methodName = route.getControllerMethod().getName();
 
-		if (route.getControllerClass().isAnnotationPresent(MainController.class)) {
+		if (route.getControllerClass().isAnnotationPresent(RootController.class)) {
 			baseName = null;
 		} else {
 			

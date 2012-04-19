@@ -1,6 +1,7 @@
-package org.vraptor.cdi;
+package org.vraptor.impl.cdi;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Modifier;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.BeanManager;
@@ -16,6 +17,8 @@ class ControllerScannerExtension implements Extension {
 	
 	public <T> void scanControllers(@Observes ProcessAnnotatedType<T> pat, BeanManager beanManager) {
 		Class<T> clazz = pat.getAnnotatedType().getJavaClass();
+		
+		if (Modifier.isAbstract(clazz.getModifiers())) return;
 		
 		// get all Controller classes. supports two-level qualifiers. 
 		// TODO support more levels?

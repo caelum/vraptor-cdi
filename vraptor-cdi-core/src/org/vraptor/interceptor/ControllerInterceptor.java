@@ -1,6 +1,5 @@
-package org.vraptor;
+package org.vraptor.interceptor;
 
-import org.vraptor.impl.InterceptorStack;
 
 public interface ControllerInterceptor {
 	void intercept(InterceptorStack stack);

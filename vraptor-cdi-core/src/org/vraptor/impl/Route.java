@@ -2,9 +2,9 @@ package org.vraptor.impl;
 
 import java.lang.reflect.Method;
 
-import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Alternative;
 
-@Any
+@Alternative
 public class Route {
 
 	private Class<?> controllerClass;

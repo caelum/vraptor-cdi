@@ -2,13 +2,13 @@ package org.vraptor.impl;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // TODO move to packge-private
 @RequestScoped
-public class RequestObjectsProducer {
-
+class RequestObjectsProducer {
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private Route route;
@@ -28,15 +28,14 @@ public class RequestObjectsProducer {
 		return route;
 	}
 	
-	public void setRequest(HttpServletRequest request) {
-		this.request = request;
-	}
-	
-	public void setResponse(HttpServletResponse response) {
-		this.response = response;
-	}
-	
 	public void setRoute(Route route) {
 		this.route = route;
+	}
+
+	public void init(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) {
+		if (this.request != null) throw new IllegalStateException("You're trying to override request/response.");
+		
+		this.request = request;
+		this.response = response;
 	}
 }

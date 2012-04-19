@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.enterprise.inject.Alternative;
 
-import org.vraptor.ControllerInterceptor;
+import org.vraptor.interceptor.ControllerInterceptor;
 
 @Alternative
 public class ScannedControllerInterceptors {

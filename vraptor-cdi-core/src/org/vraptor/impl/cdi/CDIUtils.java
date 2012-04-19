@@ -1,4 +1,6 @@
-package org.vraptor.cdi;
+package org.vraptor.impl.cdi;
+
+import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.spi.CreationalContext;
@@ -15,7 +17,13 @@ public class CDIUtils {
 	@SuppressWarnings("unchecked")
 	public <T> T getResourceInstanceFromCDI(Class<T> clazz) {
 		// create instance
-		Bean<T> bean = (Bean<T>) beanManager.getBeans(clazz).iterator().next();
+		Set<Bean<?>> beans = beanManager.getBeans(clazz);
+		
+		if (beans.size() == 0) {
+			System.out.println("Couldn't find  any " + clazz.getName() + " with default qualifiers.");
+		}
+		
+		Bean<T> bean = (Bean<T>) beans.iterator().next();
         CreationalContext<T> ctx = beanManager.createCreationalContext(bean);
         return (T) beanManager.getReference(bean, clazz, ctx);
 	}
