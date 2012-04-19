@@ -1,7 +1,7 @@
-package br.com.caelum.example;
+package br.com.caelum.example.interceptor;
 
-import org.vraptor.ControllerInterceptor;
-import org.vraptor.impl.InterceptorStack;
+import org.vraptor.interceptor.ControllerInterceptor;
+import org.vraptor.interceptor.InterceptorStack;
 
 public class AnotherInterceptor implements ControllerInterceptor {
 

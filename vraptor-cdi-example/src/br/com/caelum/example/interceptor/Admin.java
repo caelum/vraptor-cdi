@@ -1,4 +1,4 @@
-package br.com.caelum.example;
+package br.com.caelum.example.interceptor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

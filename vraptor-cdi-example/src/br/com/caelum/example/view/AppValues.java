@@ -1,4 +1,4 @@
-package br.com.caelum.example;
+package br.com.caelum.example.view;
 
 import org.vraptor.ViewHelper;
 

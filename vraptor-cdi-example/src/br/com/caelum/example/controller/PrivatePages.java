@@ -1,9 +1,11 @@
-package br.com.caelum.example;
+package br.com.caelum.example.controller;
 
 import javax.inject.Inject;
 
 import org.vraptor.Controller;
 import org.vraptor.Result;
+
+import br.com.caelum.example.interceptor.Admin;
 
 @Admin
 @Controller

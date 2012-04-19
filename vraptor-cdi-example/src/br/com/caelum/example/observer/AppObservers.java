@@ -1,4 +1,4 @@
-package br.com.caelum.example;
+package br.com.caelum.example.observer;
 
 import javax.enterprise.event.Observes;
 
