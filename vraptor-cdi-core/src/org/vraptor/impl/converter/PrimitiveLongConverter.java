@@ -15,31 +15,36 @@
  * limitations under the License. 
  */
 
-package org.vraptor.converter;
+package org.vraptor.impl.converter;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
+import org.vraptor.converter.ConversionError;
+import org.vraptor.converter.Convert;
+import org.vraptor.converter.Converter;
+
 /**
- * VRaptor's Character converter.
+ * VRaptor's primitive long converter.
  *
+ * @author Cecilia Fernandes
  * @author Guilherme Silveira
  */
-@Convert(Character.class)
-public class CharacterConverter implements Converter<Character> {
+@Convert(long.class)
+public class PrimitiveLongConverter implements Converter<Long> {
 
-    public Character convert(String value, Class<? extends Character> type, ResourceBundle bundle) {
+    public Long convert(String value, Class<? extends Long> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {
-            return null;
+            return 0L;
         }
         
-        if (value.length() != 1) {
-			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_character"), value));
+        try {
+            return Long.parseLong(value);
+        } catch (NumberFormatException e) {
+            throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_integer"), value));
         }
-        
-        return value.charAt(0);
     }
 
 }

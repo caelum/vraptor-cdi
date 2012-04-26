@@ -13,9 +13,12 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.vraptor.converter;
+package org.vraptor.impl.converter;
 
 import java.util.ResourceBundle;
+
+import org.vraptor.converter.Convert;
+import org.vraptor.converter.Converter;
 
 /**
  * A no-op converter

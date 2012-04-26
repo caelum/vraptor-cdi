@@ -14,32 +14,37 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  */
-
-package org.vraptor.converter;
+package org.vraptor.impl.converter;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
+import java.math.BigInteger;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
-/**
- * VRaptor's Short converter.
- *
- * @author Guilherme Silveira
- */
-@Convert(Short.class)
-public class ShortConverter implements Converter<Short> {
+import org.vraptor.converter.ConversionError;
+import org.vraptor.converter.Convert;
+import org.vraptor.converter.Converter;
 
-    public Short convert(String value, Class<? extends Short> type, ResourceBundle bundle) {
-        if (isNullOrEmpty(value)) {
-            return null;
-        }
-        
-        try {
-            return Short.valueOf(value);
-        } catch (NumberFormatException e) {
-        	throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_integer"), value));
-        }
-    }
+/**
+ * VRaptor's BigInteger converter.
+ *
+ * @author Cecilia Fernandes
+ */
+@Convert(BigInteger.class)
+public class BigIntegerConverter implements Converter<BigInteger>{
+
+	public BigInteger convert(String value, Class<? extends BigInteger> type, ResourceBundle bundle) {
+	    if (isNullOrEmpty(value)) {
+			return null;
+		}
+	    
+		try {
+			return new BigInteger(value);
+		} catch (NumberFormatException e) {
+			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_integer"), value));
+		}
+
+	}
 
 }

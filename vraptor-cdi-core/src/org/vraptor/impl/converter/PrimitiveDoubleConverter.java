@@ -15,30 +15,34 @@
  * limitations under the License. 
  */
 
-package org.vraptor.converter;
+package org.vraptor.impl.converter;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
-/**
- * VRaptor's Float converter.
- *
- * @author Guilherme Silveira
- */
-@Convert(Float.class)
-public class FloatConverter implements Converter<Float> {
+import org.vraptor.converter.ConversionError;
+import org.vraptor.converter.Convert;
+import org.vraptor.converter.Converter;
 
-    public Float convert(String value, Class<? extends Float> type, ResourceBundle bundle) {
+/**
+ * VRaptor's primitive double converter.
+ *
+ * @author Cecilia Fernandes
+ */
+@Convert(double.class)
+public class PrimitiveDoubleConverter implements Converter<Double> {
+
+    public Double convert(String value, Class<? extends Double> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {
-            return null;
+            return 0d;
         }
         
         try {
-            return Float.valueOf(value);
+            return Double.parseDouble(value);
         } catch (NumberFormatException e) {
-			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_number"), value));
+            throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_number"), value));
         }
     }
 

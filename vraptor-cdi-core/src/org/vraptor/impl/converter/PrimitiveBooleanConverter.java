@@ -14,33 +14,32 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  */
-package org.vraptor.converter;
+
+package org.vraptor.impl.converter;
+
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
-import java.math.BigInteger;
-import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
+import org.vraptor.converter.Convert;
+import org.vraptor.converter.Converter;
+
 /**
- * VRaptor's BigInteger converter.
+ * VRaptor's primitive boolean converter.
  *
  * @author Cecilia Fernandes
  */
-@Convert(BigInteger.class)
-public class BigIntegerConverter implements Converter<BigInteger>{
+@Convert(boolean.class)
+public class PrimitiveBooleanConverter implements Converter<Boolean> {
+	private final BooleanConverter booleanConverter = new BooleanConverter();
 
-	public BigInteger convert(String value, Class<? extends BigInteger> type, ResourceBundle bundle) {
-	    if (isNullOrEmpty(value)) {
-			return null;
-		}
-	    
-		try {
-			return new BigInteger(value);
-		} catch (NumberFormatException e) {
-			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_integer"), value));
-		}
-
-	}
+    public Boolean convert(String value, Class<? extends Boolean> type, ResourceBundle bundle) {
+        if (isNullOrEmpty(value)) {
+        	return false;
+        }
+        
+        return booleanConverter.convert(value, type, bundle);
+    }
 
 }

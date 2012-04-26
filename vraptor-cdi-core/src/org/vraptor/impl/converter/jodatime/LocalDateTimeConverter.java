@@ -15,41 +15,41 @@
  * limitations under the License. 
  */
 
-package org.vraptor.converter.jodatime;
+package org.vraptor.impl.converter.jodatime;
 
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.vraptor.converter.ConversionError;
 import org.vraptor.converter.Convert;
 import org.vraptor.converter.Converter;
-import org.vraptor.core.Localization;
+import org.vraptor.impl.core.Localization;
 
 /**
- * VRaptor converter for {@link LocalDate}. {@link LocalDate} is part of Joda Time library.
+ * VRaptor converter for {@link LocalDateTime}. {@link LocalDateTime} is part of Joda Time library.
  * 
  * @author Lucas Cavalcanti
  */
-@Convert(LocalDate.class)
-public class LocalDateConverter implements Converter<LocalDate> {
+@Convert(LocalDateTime.class)
+public class LocalDateTimeConverter implements Converter<LocalDateTime> {
 
     private final Localization localization;
-
-	public LocalDateConverter(Localization localization) {
+    
+	public LocalDateTimeConverter(Localization localization) {
         this.localization = localization;
     }
 
-    public LocalDate convert(String value, Class<? extends LocalDate> type, ResourceBundle bundle) {
+    public LocalDateTime convert(String value, Class<? extends LocalDateTime> type, ResourceBundle bundle) {
 		try {
-			Date date = new LocaleBasedJodaTimeConverter(localization).convert(value, type);
-			if (date == null) {
+			Date datetime = new LocaleBasedJodaTimeConverter(localization).convert(value, type);
+			if (datetime == null) {
 				return null;
 			}
-			return LocalDate.fromDateFields(date);
+			return LocalDateTime.fromDateFields(datetime);
 		} catch (Exception e) {
-			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_date"), value));
+			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_datetime"), value));
 		}
 	}
 }

@@ -14,32 +14,36 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  */
-package org.vraptor.converter;
+
+package org.vraptor.impl.converter;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
-import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
+import org.vraptor.converter.ConversionError;
+import org.vraptor.converter.Convert;
+import org.vraptor.converter.Converter;
+
 /**
- * VRaptor's BigDecimal converter.
+ * VRaptor's Double converter.
  *
- * @author Cecilia Fernandes
+ * @author Guilherme Silveira
  */
-@Convert(BigDecimal.class)
-public class BigDecimalConverter implements Converter<BigDecimal>{
+@Convert(Double.class)
+public class DoubleConverter implements Converter<Double> {
 
-	public BigDecimal convert(String value, Class<? extends BigDecimal> type, ResourceBundle bundle) {
-		if (isNullOrEmpty(value)) {
-			return null;
-		}
-		
-		try {
-			return new BigDecimal(value);
-		} catch (NumberFormatException e) {
+    public Double convert(String value, Class<? extends Double> type, ResourceBundle bundle) {
+        if (isNullOrEmpty(value)) {
+            return null;
+        }
+        
+        try {
+            return Double.valueOf(value);
+        } catch (NumberFormatException e) {
 			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_number"), value));
-		}
+        }
+    }
 
-	}
 }

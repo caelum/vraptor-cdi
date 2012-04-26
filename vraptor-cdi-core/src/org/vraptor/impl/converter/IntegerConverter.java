@@ -15,28 +15,35 @@
  * limitations under the License. 
  */
 
-package org.vraptor.converter;
-
+package org.vraptor.impl.converter;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
-/**
- * VRaptor's primitive boolean converter.
- *
- * @author Cecilia Fernandes
- */
-@Convert(boolean.class)
-public class PrimitiveBooleanConverter implements Converter<Boolean> {
-	private final BooleanConverter booleanConverter = new BooleanConverter();
+import org.vraptor.converter.ConversionError;
+import org.vraptor.converter.Convert;
+import org.vraptor.converter.Converter;
 
-    public Boolean convert(String value, Class<? extends Boolean> type, ResourceBundle bundle) {
+/**
+ * VRaptor's Integer converter.
+ *
+ * @author Guilherme Silveira
+ */
+@Convert(Integer.class)
+public class IntegerConverter implements Converter<Integer> {
+
+    public Integer convert(String value, Class<? extends Integer> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {
-        	return false;
+            return null;
         }
         
-        return booleanConverter.convert(value, type, bundle);
+        try {
+            return Integer.valueOf(value);
+        } catch (NumberFormatException e) {
+			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_integer"), value));
+        }
     }
 
 }

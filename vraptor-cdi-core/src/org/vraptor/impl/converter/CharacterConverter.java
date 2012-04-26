@@ -15,31 +15,35 @@
  * limitations under the License. 
  */
 
-package org.vraptor.converter;
+package org.vraptor.impl.converter;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
+import org.vraptor.converter.ConversionError;
+import org.vraptor.converter.Convert;
+import org.vraptor.converter.Converter;
+
 /**
- * VRaptor's Byte converter.
+ * VRaptor's Character converter.
  *
  * @author Guilherme Silveira
  */
-@Convert(Byte.class)
-public class ByteConverter implements Converter<Byte> {
+@Convert(Character.class)
+public class CharacterConverter implements Converter<Character> {
 
-    public Byte convert(String value, Class<? extends Byte> type, ResourceBundle bundle) {
+    public Character convert(String value, Class<? extends Character> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {
             return null;
         }
         
-        try {
-            return Byte.valueOf(value);
-        } catch (NumberFormatException e) {
-			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_integer"), value));
+        if (value.length() != 1) {
+			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_character"), value));
         }
+        
+        return value.charAt(0);
     }
 
 }

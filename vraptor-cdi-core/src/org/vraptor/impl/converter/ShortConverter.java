@@ -15,30 +15,34 @@
  * limitations under the License. 
  */
 
-package org.vraptor.converter;
+package org.vraptor.impl.converter;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
+import org.vraptor.converter.ConversionError;
+import org.vraptor.converter.Convert;
+import org.vraptor.converter.Converter;
+
 /**
- * VRaptor's Integer converter.
+ * VRaptor's Short converter.
  *
  * @author Guilherme Silveira
  */
-@Convert(Integer.class)
-public class IntegerConverter implements Converter<Integer> {
+@Convert(Short.class)
+public class ShortConverter implements Converter<Short> {
 
-    public Integer convert(String value, Class<? extends Integer> type, ResourceBundle bundle) {
+    public Short convert(String value, Class<? extends Short> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {
             return null;
         }
         
         try {
-            return Integer.valueOf(value);
+            return Short.valueOf(value);
         } catch (NumberFormatException e) {
-			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_integer"), value));
+        	throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_integer"), value));
         }
     }
 

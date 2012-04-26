@@ -14,52 +14,59 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  */
-package org.vraptor.converter;
+package org.vraptor.impl.converter;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.enterprise.context.RequestScoped;
 
-import org.vraptor.core.Localization;
+import org.vraptor.converter.ConversionError;
+import org.vraptor.converter.Convert;
+import org.vraptor.converter.Converter;
+import org.vraptor.impl.core.Localization;
 
 /**
- * Locale based date converter.
- * 
+ * Locale based calendar converter.
+ *
  * @author Guilherme Silveira
  */
-@Convert(Date.class)
+@Convert(Calendar.class)
 @RequestScoped
-public class LocaleBasedDateConverter
-    implements Converter<Date> {
+public class LocaleBasedCalendarConverter implements Converter<Calendar> {
 
     private final Localization localization;
-
-    public LocaleBasedDateConverter(Localization localization) {
+    
+    public LocaleBasedCalendarConverter(Localization localization) {
         this.localization = localization;
     }
 
-    public Date convert(String value, Class<? extends Date> type, ResourceBundle bundle) {
+    public Calendar convert(String value, Class<? extends Calendar> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {
             return null;
         }
-
+        
         Locale locale = localization.getLocale();
         if (locale == null) {
             locale = Locale.getDefault();
         }
-
+        
         DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT, locale);
         try {
-            return format.parse(value);
+            Date date = format.parse(value);
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(date);
+            return calendar;
         } catch (ParseException e) {
-            throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_date"), value));
+			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_date"), value));
         }
     }
 

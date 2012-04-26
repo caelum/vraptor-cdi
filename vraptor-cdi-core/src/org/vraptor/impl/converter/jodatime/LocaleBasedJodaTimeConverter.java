@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.vraptor.converter.jodatime;
+package org.vraptor.impl.converter.jodatime;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
@@ -25,7 +25,7 @@ import java.util.Locale;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.base.BaseLocal;
-import org.vraptor.core.Localization;
+import org.vraptor.impl.core.Localization;
 
 class LocaleBasedJodaTimeConverter {
 

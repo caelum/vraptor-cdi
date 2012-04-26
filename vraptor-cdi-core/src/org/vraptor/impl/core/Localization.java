@@ -15,7 +15,7 @@
  * limitations under the License. 
  */
 
-package org.vraptor.core;
+package org.vraptor.impl.core;
 
 import java.util.Locale;
 import java.util.MissingResourceException;

@@ -15,29 +15,32 @@
  * limitations under the License. 
  */
 
-package org.vraptor.converter;
+package org.vraptor.impl.converter;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
+import org.vraptor.converter.ConversionError;
+import org.vraptor.converter.Convert;
+import org.vraptor.converter.Converter;
+
 /**
- * VRaptor's primitive byte converter.
+ * VRaptor's primitive short converter.
  *
  * @author Cecilia Fernandes
- * @author Guilherme Silveira
  */
-@Convert(byte.class)
-public class PrimitiveByteConverter implements Converter<Byte> {
+@Convert(short.class)
+public class PrimitiveShortConverter implements Converter<Short> {
 
-    public Byte convert(String value, Class<? extends Byte> type, ResourceBundle bundle) {
+    public Short convert(String value, Class<? extends Short> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {
-            return (byte) 0;
+            return (short) 0;
         }
         
         try {
-            return Byte.parseByte(value);
+            return Short.parseShort(value);
         } catch (NumberFormatException e) {
             throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_integer"), value));
         }

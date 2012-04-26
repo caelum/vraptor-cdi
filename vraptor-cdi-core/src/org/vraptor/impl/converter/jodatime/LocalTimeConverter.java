@@ -15,7 +15,7 @@
  * limitations under the License. 
  */
 
-package org.vraptor.converter.jodatime;
+package org.vraptor.impl.converter.jodatime;
 
 import java.text.MessageFormat;
 import java.util.Date;
@@ -25,7 +25,7 @@ import org.joda.time.LocalTime;
 import org.vraptor.converter.ConversionError;
 import org.vraptor.converter.Convert;
 import org.vraptor.converter.Converter;
-import org.vraptor.core.Localization;
+import org.vraptor.impl.core.Localization;
 
 /**
  * VRaptor converter for {@link LocalTime}. {@link LocalTime} is part of Joda Time library.
