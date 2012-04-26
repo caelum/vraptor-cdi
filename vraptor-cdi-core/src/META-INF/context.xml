@@ -5,6 +5,4 @@
       auth="Container"
       type="javax.enterprise.inject.spi.BeanManager"
       factory="org.jboss.weld.resources.ManagerObjectFactory"/>
-   <!-- Uncomment to enable injection into Servlet -->
-   <!-- <Listener className="org.jboss.weld.environment.tomcat.WeldLifecycleListener"/> -->
 </Context>
