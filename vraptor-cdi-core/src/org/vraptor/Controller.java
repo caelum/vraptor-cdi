@@ -8,6 +8,10 @@ import java.lang.annotation.Target;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Stereotype;
 
+/**
+ * Marks controllers, entry points for requests.
+ * @author Sérgio Lopes
+ */
 @Stereotype
 @RequestScoped
 
@@ -15,4 +19,13 @@ import javax.enterprise.inject.Stereotype;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Controller {
 
+	/**
+	 * @return Controller name. Defaults to class name.
+	 */
+	String value() default "";
+	
+	/**
+	 * @return Base path for controller methods. Defaults to lowercase controller name.
+	 */
+	String path() default "";
 }

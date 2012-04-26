@@ -43,7 +43,7 @@ public class Router {
 		// discovers the path
 		String path;
 		if (method.isAnnotationPresent(Path.class)) {
-			path = method.getAnnotation(Path.class).value();
+			path = method.getAnnotation(Path.class).value()[0];
 		} else {
 			// default path
 			path = nameStrategy.pathFor(route);
