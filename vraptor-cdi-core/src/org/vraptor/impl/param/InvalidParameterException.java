@@ -15,32 +15,27 @@
  * limitations under the License. 
  */
 
-package org.vraptor.converter;
+package org.vraptor.impl.param;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Stereotype;
+import org.vraptor.VRaptorException;
 
 /**
- * Registers a class as a converter.
- * 
+ * Some parameters sent by http were invalid.
+ *
  * @author Guilherme Silveira
- * @author Sérgio Lopes
  */
-@Stereotype
-@ApplicationScoped
+public class InvalidParameterException extends VRaptorException {
+	private static final long serialVersionUID = 111244448284189804L;
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Convert {
+	public InvalidParameterException(String msg, Throwable throwable) {
+        super(msg, throwable);
+    }
 
-    /**
-     * Register this component as the default converter for a type.
-     */
-    Class<?> value();
+    public InvalidParameterException(Throwable e) {
+        super(e);
+    }
 
+    public InvalidParameterException(String msg) {
+        super(msg);
+    }
 }

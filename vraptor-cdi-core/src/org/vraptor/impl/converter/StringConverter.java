@@ -17,17 +17,13 @@ package org.vraptor.impl.converter;
 
 import java.util.ResourceBundle;
 
-import org.vraptor.converter.Convert;
 import org.vraptor.converter.Converter;
 
 /**
  * A no-op converter
  *
  * @author Lucas Cavalcanti
- * @since 3.3.0
- *
  */
-@Convert(String.class)
 public class StringConverter implements Converter<String> {
 
 	public String convert(String value, Class<? extends String> type, ResourceBundle bundle) {

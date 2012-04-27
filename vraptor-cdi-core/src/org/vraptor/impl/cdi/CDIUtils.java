@@ -8,11 +8,17 @@ import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
+import org.vraptor.VRaptorException;
+
 @ApplicationScoped
 public class CDIUtils {
 
 	@Inject
 	private BeanManager beanManager;
+	
+	public boolean hasBean(Class<?> clazz) {
+		return beanManager.getBeans(clazz).size() != 0;
+	}
 	
 	@SuppressWarnings("unchecked")
 	public <T> T getResourceInstanceFromCDI(Class<T> clazz) {
@@ -20,7 +26,7 @@ public class CDIUtils {
 		Set<Bean<?>> beans = beanManager.getBeans(clazz);
 		
 		if (beans.size() == 0) {
-			System.out.println("Couldn't find  any " + clazz.getName() + " with default qualifiers.");
+			new VRaptorException("Couldn't find  any " + clazz.getName() + " with default qualifiers.");
 		}
 		
 		Bean<T> bean = (Bean<T>) beans.iterator().next();

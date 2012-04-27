@@ -23,8 +23,6 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
-import org.vraptor.converter.Converter;
 
 /**
  * VRaptor's primitive long converter.
@@ -32,8 +30,7 @@ import org.vraptor.converter.Converter;
  * @author Cecilia Fernandes
  * @author Guilherme Silveira
  */
-@Convert(long.class)
-public class PrimitiveLongConverter implements Converter<Long> {
+public class PrimitiveLongConverter implements PrimitiveConverter<Long> {
 
     public Long convert(String value, Class<? extends Long> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {

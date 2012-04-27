@@ -23,9 +23,9 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Alternative;
 
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
 import org.vraptor.converter.Converter;
 
 /**
@@ -34,8 +34,8 @@ import org.vraptor.converter.Converter;
  *
  * @author Guilherme Silveira
  */
-@Convert(Enum.class)
-@Dependent
+// XXX support this converter
+@Dependent @Alternative
 public class EnumConverter<T extends Enum<T>> implements Converter<T> {
 
 	/**

@@ -25,10 +25,10 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
 
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
 import org.vraptor.converter.Converter;
 import org.vraptor.impl.core.Localization;
 
@@ -37,23 +37,16 @@ import org.vraptor.impl.core.Localization;
  * 
  * @author Guilherme Silveira
  */
-@Convert(Date.class)
-@RequestScoped
-public class LocaleBasedDateConverter
-    implements Converter<Date> {
+public class LocaleBasedDateConverter implements Converter<Date> {
 
-    private final Localization localization;
-
-    public LocaleBasedDateConverter(Localization localization) {
-        this.localization = localization;
-    }
+	@Inject private Instance<Localization> localization;
 
     public Date convert(String value, Class<? extends Date> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {
             return null;
         }
 
-        Locale locale = localization.getLocale();
+        Locale locale = localization.get().getLocale();
         if (locale == null) {
             locale = Locale.getDefault();
         }

@@ -23,7 +23,6 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
 import org.vraptor.converter.Converter;
 
 /**
@@ -31,7 +30,6 @@ import org.vraptor.converter.Converter;
  *
  * @author Cecilia Fernandes
  */
-@Convert(BigDecimal.class)
 public class BigDecimalConverter implements Converter<BigDecimal>{
 
 	public BigDecimal convert(String value, Class<? extends BigDecimal> type, ResourceBundle bundle) {
@@ -45,5 +43,9 @@ public class BigDecimalConverter implements Converter<BigDecimal>{
 			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_number"), value));
 		}
 
+	}
+
+	public Class<?> type() {
+		return BigDecimal.class;
 	}
 }

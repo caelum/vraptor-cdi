@@ -1,4 +1,4 @@
-package org.vraptor.impl;
+package org.vraptor.impl.core;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
@@ -6,21 +6,27 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// TODO move to packge-private
+import org.vraptor.impl.Route;
+import org.vraptor.impl.http.MutableRequest;
+import org.vraptor.impl.http.MutableResponse;
+import org.vraptor.impl.http.VRaptorRequest;
+import org.vraptor.impl.http.VRaptorResponse;
+
 @RequestScoped
 class RequestObjectsProducer {
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private Route route;
+	private ResourceMethod resourceMethod;
 	
 	@Produces @RequestScoped
-	public HttpServletRequest producesRequest() {
-		return request;
+	public MutableRequest producesRequest() {
+		return new VRaptorRequest(request);
 	}
 	
 	@Produces @RequestScoped
-	public HttpServletResponse producesResponse() {
-		return response;
+	public MutableResponse producesResponse() {
+		return new VRaptorResponse(response);
 	}
 
 	@Produces @RequestScoped
@@ -28,8 +34,17 @@ class RequestObjectsProducer {
 		return route;
 	}
 	
+	@Produces @RequestScoped
+	public ResourceMethod producesControllerMethod() {
+		return this.resourceMethod;
+	}
+	
 	public void setRoute(Route route) {
 		this.route = route;
+		
+		// translate to vraptor3 object
+		// TODO remove interface from ResourceMethod/Class?
+		this.resourceMethod = new DefaultResourceMethod(new DefaultResourceClass(route.getControllerClass()), route.getControllerMethod());
 	}
 
 	public void init(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) {

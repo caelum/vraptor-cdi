@@ -23,8 +23,6 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
-import org.vraptor.converter.Converter;
 
 /**
  * VRaptor's primitive byte converter.
@@ -32,8 +30,7 @@ import org.vraptor.converter.Converter;
  * @author Cecilia Fernandes
  * @author Guilherme Silveira
  */
-@Convert(byte.class)
-public class PrimitiveByteConverter implements Converter<Byte> {
+public class PrimitiveByteConverter implements PrimitiveConverter<Byte> {
 
     public Byte convert(String value, Class<? extends Byte> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {

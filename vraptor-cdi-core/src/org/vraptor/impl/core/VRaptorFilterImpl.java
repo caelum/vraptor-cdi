@@ -1,4 +1,4 @@
-package org.vraptor.impl;
+package org.vraptor.impl.core;
 
 import java.io.File;
 
@@ -10,6 +10,16 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.vraptor.impl.Executor;
+import org.vraptor.impl.NotFoundException;
+import org.vraptor.impl.Route;
+import org.vraptor.impl.Router;
+import org.vraptor.impl.StaticFunctions;
+
+/**
+ * Filter's implementation
+ * @author Sérgio Lopes
+ */
 @ApplicationScoped
 public class VRaptorFilterImpl {
 

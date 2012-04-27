@@ -26,7 +26,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
 import org.vraptor.converter.Converter;
 
 /**
@@ -37,7 +36,6 @@ import org.vraptor.converter.Converter;
  *
  * @author Guilherme Silveira
  */
-@Convert(Boolean.class)
 public class BooleanConverter implements Converter<Boolean> {
 	private static final Set<String> IS_TRUE  = new HashSet<String>(Arrays.asList("TRUE", "1", "YES", "Y", "ON"));
 	private static final Set<String> IS_FALSE = new HashSet<String>(Arrays.asList("FALSE", "0", "NO", "N", "OFF"));
@@ -61,4 +59,5 @@ public class BooleanConverter implements Converter<Boolean> {
 	private boolean matches(Set<String> words, String value) {
 		return words.contains(value);
 	}
+
 }

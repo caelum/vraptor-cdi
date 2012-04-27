@@ -23,7 +23,6 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
 import org.vraptor.converter.Converter;
 
 /**
@@ -31,7 +30,6 @@ import org.vraptor.converter.Converter;
  *
  * @author Cecilia Fernandes
  */
-@Convert(BigInteger.class)
 public class BigIntegerConverter implements Converter<BigInteger>{
 
 	public BigInteger convert(String value, Class<? extends BigInteger> type, ResourceBundle bundle) {
@@ -45,6 +43,10 @@ public class BigIntegerConverter implements Converter<BigInteger>{
 			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_integer"), value));
 		}
 
+	}
+
+	public Class<?> type() {
+		return BigInteger.class;
 	}
 
 }

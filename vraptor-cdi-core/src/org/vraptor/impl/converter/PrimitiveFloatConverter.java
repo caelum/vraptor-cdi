@@ -23,16 +23,13 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
-import org.vraptor.converter.Converter;
 
 /**
  * VRaptor's primitive float converter.
  *
  * @author Cecilia Fernandes
  */
-@Convert(float.class)
-public class PrimitiveFloatConverter implements Converter<Float> {
+public class PrimitiveFloatConverter implements PrimitiveConverter<Float> {
 
     public Float convert(String value, Class<? extends Float> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {

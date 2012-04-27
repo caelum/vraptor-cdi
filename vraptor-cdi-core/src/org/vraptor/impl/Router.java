@@ -10,7 +10,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.vraptor.Path;
-import org.vraptor.extensions.PathNameStrategy;
+import org.vraptor.extension.PathNameStrategy;
 
 @ApplicationScoped
 public class Router {

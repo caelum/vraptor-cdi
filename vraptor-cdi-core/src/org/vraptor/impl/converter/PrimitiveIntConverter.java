@@ -23,8 +23,6 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
-import org.vraptor.converter.Converter;
 
 /**
  * VRaptor's primitive int converter.
@@ -32,8 +30,7 @@ import org.vraptor.converter.Converter;
  * @author Guilherme Silveira
  * @author Cecilia Fernandes
  */
-@Convert(int.class)
-public class PrimitiveIntConverter implements Converter<Integer> {
+public class PrimitiveIntConverter implements PrimitiveConverter<Integer> {
 
     public Integer convert(String value, Class<? extends Integer> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {

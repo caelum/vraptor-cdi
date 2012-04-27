@@ -23,7 +23,6 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
 import org.vraptor.converter.Converter;
 
 /**
@@ -31,7 +30,6 @@ import org.vraptor.converter.Converter;
  *
  * @author Guilherme Silveira
  */
-@Convert(Integer.class)
 public class IntegerConverter implements Converter<Integer> {
 
     public Integer convert(String value, Class<? extends Integer> type, ResourceBundle bundle) {

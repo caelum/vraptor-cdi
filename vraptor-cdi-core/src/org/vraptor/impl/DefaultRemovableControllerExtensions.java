@@ -2,7 +2,7 @@ package org.vraptor.impl;
 
 import javax.enterprise.inject.Produces;
 
-import org.vraptor.extensions.RemovableControllerExtension;
+import org.vraptor.extension.RemovableControllerExtension;
 
 public class DefaultRemovableControllerExtensions {
 

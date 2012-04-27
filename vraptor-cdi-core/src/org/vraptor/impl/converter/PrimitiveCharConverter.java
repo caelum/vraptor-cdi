@@ -23,16 +23,13 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
-import org.vraptor.converter.Converter;
 
 /**
  * VRaptor's primitive char converter.
  *
  * @author Cecilia Fernandes
  */
-@Convert(char.class)
-public class PrimitiveCharConverter implements Converter<Character> {
+public class PrimitiveCharConverter implements PrimitiveConverter<Character> {
 
     public Character convert(String value, Class<? extends Character> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {

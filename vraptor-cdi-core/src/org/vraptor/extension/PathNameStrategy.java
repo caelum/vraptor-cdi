@@ -1,4 +1,4 @@
-package org.vraptor.extensions;
+package org.vraptor.extension;
 
 import org.vraptor.impl.Route;
 

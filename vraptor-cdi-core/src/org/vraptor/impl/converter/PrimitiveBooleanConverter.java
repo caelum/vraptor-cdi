@@ -22,16 +22,12 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 
 import java.util.ResourceBundle;
 
-import org.vraptor.converter.Convert;
-import org.vraptor.converter.Converter;
-
 /**
  * VRaptor's primitive boolean converter.
  *
  * @author Cecilia Fernandes
  */
-@Convert(boolean.class)
-public class PrimitiveBooleanConverter implements Converter<Boolean> {
+public class PrimitiveBooleanConverter implements PrimitiveConverter<Boolean> {
 	private final BooleanConverter booleanConverter = new BooleanConverter();
 
     public Boolean convert(String value, Class<? extends Boolean> type, ResourceBundle bundle) {

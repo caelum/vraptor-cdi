@@ -23,16 +23,13 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
-import org.vraptor.converter.Converter;
 
 /**
  * VRaptor's primitive double converter.
  *
  * @author Cecilia Fernandes
  */
-@Convert(double.class)
-public class PrimitiveDoubleConverter implements Converter<Double> {
+public class PrimitiveDoubleConverter implements PrimitiveConverter<Double> {
 
     public Double convert(String value, Class<? extends Double> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {

@@ -21,9 +21,11 @@ import java.text.MessageFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
 import org.joda.time.LocalTime;
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
 import org.vraptor.converter.Converter;
 import org.vraptor.impl.core.Localization;
 
@@ -32,18 +34,13 @@ import org.vraptor.impl.core.Localization;
  * 
  * @author Lucas Cavalcanti
  */
-@Convert(LocalTime.class)
 public class LocalTimeConverter implements Converter<LocalTime> {
 	
-    private final Localization localization;
-
-	public LocalTimeConverter(Localization localization) {
-        this.localization = localization;
-    }
+	@Inject private Instance<Localization> localization;
 
     public LocalTime convert(String value, Class<? extends LocalTime> type, ResourceBundle bundle) {
         try {
-        	Date time = new LocaleBasedJodaTimeConverter(localization).convert(value, type);
+        	Date time = new LocaleBasedJodaTimeConverter(localization.get()).convert(value, type);
         	if (time == null) {
         		return null;
         	}
@@ -52,4 +49,5 @@ public class LocalTimeConverter implements Converter<LocalTime> {
 			throw new ConversionError(MessageFormat.format(bundle.getString("is_not_a_valid_time"), value));
         } 
 	}
+
 }

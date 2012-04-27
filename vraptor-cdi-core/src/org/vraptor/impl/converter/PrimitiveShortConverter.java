@@ -23,16 +23,13 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import org.vraptor.converter.ConversionError;
-import org.vraptor.converter.Convert;
-import org.vraptor.converter.Converter;
 
 /**
  * VRaptor's primitive short converter.
  *
  * @author Cecilia Fernandes
  */
-@Convert(short.class)
-public class PrimitiveShortConverter implements Converter<Short> {
+public class PrimitiveShortConverter implements PrimitiveConverter<Short> {
 
     public Short convert(String value, Class<? extends Short> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {
