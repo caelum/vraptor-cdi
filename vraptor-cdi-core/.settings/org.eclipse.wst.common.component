@@ -3,7 +3,8 @@
     <wb-module deploy-name="vraptor-cdi">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/example-src"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
         <property name="context-root" value="vraptor-cdi"/>
         <property name="java-output-path" value="/vraptor-cdi/build/classes"/>
     </wb-module>
