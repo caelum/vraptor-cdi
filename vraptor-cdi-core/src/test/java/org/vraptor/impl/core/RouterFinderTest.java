@@ -32,7 +32,7 @@ public class RouterFinderTest {
     }
 
     @Test
-    public void ifRealStaticResourcesCallFilterChainMethodDoFilter() throws Exception {
+    public void realStaticResourcesCallFilterChainMethodDoFilter() throws Exception {
     	File file = File.createTempFile("_test", ".xml");
     	String key = file.getAbsolutePath();
     	when(request.getRequestURI()).thenReturn("/contextName/" +key);
@@ -45,7 +45,7 @@ public class RouterFinderTest {
     }
 
     @Test
-    public void ifNonStaticResourcesCallExecutorMethodExecute() throws Exception {
+    public void nonStaticResourcesCallExecutorMethodExecute() throws Exception {
         File file = new File("_test_unknown.xml");
         String key = file.getAbsolutePath();
         Route route = mock(Route.class);
