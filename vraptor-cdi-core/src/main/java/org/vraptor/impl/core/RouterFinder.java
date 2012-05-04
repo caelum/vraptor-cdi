@@ -3,13 +3,14 @@ package org.vraptor.impl.core;
 import java.io.File;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vraptor.impl.Executor;
 import org.vraptor.impl.NotFoundException;
 import org.vraptor.impl.Route;
@@ -17,37 +18,51 @@ import org.vraptor.impl.Router;
 import org.vraptor.impl.StaticFunctions;
 
 /**
- * Filter's implementation
+ * Locates a dynamic or fixed route so we can process the request.
+ * 
  * @author Sérgio Lopes
+ * @author Guilherme Silveira
+ * @author Andre Silva
  */
 @ApplicationScoped
-public class VRaptorFilterImpl {
+public class RouterFinder {
 
-	@Inject	private Router router;
-	@Inject	private Executor executor;
-	
-	@Inject	private Instance<RequestObjectsProducer> requestObjectsProducer;
+	private final Router router;
+	private final Executor executor;
+	private final static Logger logger = LoggerFactory.getLogger(RouterFinder.class);
+
+	/**
+	 * Weld eyes only.
+	 */
+	protected RouterFinder() {
+		this(null, null);
+	}
+
+	@Inject
+	public RouterFinder(Router router, Executor executor) {
+		super();
+		this.router = router;
+		this.executor = executor;
+	}
 
 	public void execute(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, ServletContext servletContext) throws Exception {
-		// if file exists, skips
 		String uri = StaticFunctions.requestUri(request, servletContext);
-		if (!uri.equals("/") && new File(servletContext.getRealPath(uri)).exists()) {
-			System.out.println("[VRaptor] Delegating to container: " + uri);
+		
+		if (fileExists(servletContext, uri)) {
+			logger.debug("[VRaptor] Delegating request container: " + uri);
 			filterChain.doFilter(request, response);
 			return;
 		}
 
-		// outject request values do CDI
-		requestObjectsProducer.get().init(request, response, servletContext);
-
-		// VRaptor:
 		try {
 			Route route = router.routeFor(uri);
-			requestObjectsProducer.get().setRoute(route);
-			executor.execute();
-			
+			executor.execute(request, response, servletContext, route);
 		} catch (NotFoundException e) {
 			response.sendError(404);
 		}
+	}
+
+	private boolean fileExists(ServletContext servletContext, String uri) {
+		return !uri.equals("/") && new File(servletContext.getRealPath(uri)).exists();
 	}
 }

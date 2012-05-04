@@ -8,10 +8,14 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vraptor.Controller;
 import org.vraptor.impl.ScannedControllers;
 
 class ControllerScannerExtension implements Extension {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ControllerScannerExtension.class);
 
 	ScannedControllers controllers = new ScannedControllers();
 	
@@ -20,13 +24,30 @@ class ControllerScannerExtension implements Extension {
 		
 		if (Modifier.isAbstract(clazz.getModifiers())) return;
 		
-		// get all Controller classes. supports two-level qualifiers. 
-		// TODO support more levels?
+		if(isController(clazz)) {
+			logger.debug("Found a @Controller " + clazz.getName());
+			controllers.add(clazz);
+		}
+	}
+
+	private <T> boolean isController(Class<T> clazz) {
+		if(isControllerPackage(clazz)) {
+			return true;
+		}
+
 		for (Annotation annotation : clazz.getAnnotations()) {
-			if (annotation.annotationType() == Controller.class || annotation.annotationType().isAnnotationPresent(Controller.class)) {
-				System.out.println("Found a @Controller " + clazz.getName());
-				controllers.add(clazz);
+			if (isControllerAnnotated(annotation)) {
+				return true;
 			}
 		}
+		return false;
+	}
+
+	private boolean isControllerAnnotated(Annotation annotation) {
+		return annotation.annotationType() == Controller.class || annotation.annotationType().isAnnotationPresent(Controller.class);
+	}
+
+	private <T> boolean isControllerPackage(Class<T> clazz) {
+		return clazz.getPackage().getName().contains(".controller.") || clazz.getPackage().getName().endsWith(".controller");
 	}
 }

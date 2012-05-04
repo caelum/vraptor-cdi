@@ -42,7 +42,7 @@ import org.vraptor.converter.ConversionError;
 import org.vraptor.impl.core.Localization;
 import org.vraptor.impl.http.MutableRequest;
 
-public class LocaleBasedCalendarConverterTest {
+public class LocaleBasedCalendarConverterTest extends WeldTest {
 
 	private LocaleBasedCalendarConverter converter;
 	private Mockery mockery;
@@ -58,8 +58,8 @@ public class LocaleBasedCalendarConverterTest {
 		this.request = mockery.mock(MutableRequest.class);
 		this.session = mockery.mock(HttpSession.class);
 		this.context = mockery.mock(ServletContext.class);
-		localization = mockery.mock(Localization.class);
-		this.converter = new LocaleBasedCalendarConverter();
+		this.localization = mockery.mock(Localization.class);
+		this.converter = new LocaleBasedCalendarConverter(localization);
 		this.bundle = ResourceBundle.getBundle("messages");
         Locale.setDefault(Locale.ENGLISH);
 	}

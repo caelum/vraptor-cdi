@@ -1,4 +1,4 @@
-package org.vraptor.impl.core;
+package org.vraptor.impl;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
@@ -6,19 +6,21 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.vraptor.impl.Route;
+import org.vraptor.impl.core.DefaultResourceClass;
+import org.vraptor.impl.core.DefaultResourceMethod;
+import org.vraptor.impl.core.ResourceMethod;
 import org.vraptor.impl.http.MutableRequest;
 import org.vraptor.impl.http.MutableResponse;
 import org.vraptor.impl.http.VRaptorRequest;
 import org.vraptor.impl.http.VRaptorResponse;
 
 @RequestScoped
-class RequestObjectsProducer {
+class Request {
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private Route route;
 	private ResourceMethod resourceMethod;
-	
+
 	@Produces @RequestScoped
 	public MutableRequest producesRequest() {
 		return new VRaptorRequest(request);

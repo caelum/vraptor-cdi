@@ -1,0 +1,8 @@
+- are your controllers in the controller package?
+	if yes, remove your Resource annotation
+	if no, rename @Resource to @Controller
+
+
+TODO if  we want in the future
+- support @Resource
+

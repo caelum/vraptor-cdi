@@ -1,7 +1,11 @@
 package org.vraptor.impl;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.vraptor.impl.cdi.CDIUtils;
 import org.vraptor.interceptor.ControllerInterceptor;
@@ -16,7 +20,11 @@ public class Executor {
 	@Inject
 	private CDIUtils utils;
 	
-	public void execute()  {
+	@Inject	private Instance<Request> request;
+	
+	public void execute(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext, Route route)  {
+		this.request.get().init(request, response, servletContext);
+
 		ControllerInterceptor firstInterceptor = utils.getResourceInstanceFromCDI(ControllerExecutor.class);
 		InterceptorStack firstStack = new InterceptorStack(firstInterceptor, null);
 		InterceptorStack lastStack = firstStack;

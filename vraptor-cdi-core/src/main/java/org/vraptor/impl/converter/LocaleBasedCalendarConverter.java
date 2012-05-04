@@ -27,7 +27,6 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.vraptor.converter.ConversionError;
@@ -41,14 +40,19 @@ import org.vraptor.impl.core.Localization;
  */
 public class LocaleBasedCalendarConverter implements Converter<Calendar> {
 
-    @Inject private Instance<Localization> localization;
+    private final Localization localization;
+    
+    @Inject 
+	public LocaleBasedCalendarConverter( Localization localization) {
+		this.localization = localization;
+    }
     
     public Calendar convert(String value, Class<? extends Calendar> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {
             return null;
         }
         
-        Locale locale = localization.get().getLocale();
+        Locale locale = localization.getLocale();
         if (locale == null) {
             locale = Locale.getDefault();
         }

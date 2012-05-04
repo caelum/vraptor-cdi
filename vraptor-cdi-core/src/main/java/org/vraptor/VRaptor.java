@@ -17,12 +17,15 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.vraptor.impl.core.VRaptorFilterImpl;
+import org.slf4j.Logger;
+import org.vraptor.impl.core.RouterFinder;
 
-@WebFilter(displayName="vraptor", urlPatterns="/*", dispatcherTypes={DispatcherType.FORWARD, DispatcherType.REQUEST})
+@WebFilter(displayName="vraptor4", urlPatterns="/*", dispatcherTypes={DispatcherType.FORWARD, DispatcherType.REQUEST})
 public class VRaptor implements Filter {
+	
+	private static final Logger logger = org.slf4j.LoggerFactory.getLogger(VRaptor.class);
 
-	@Inject private VRaptorFilterImpl vraptor;
+	@Inject private RouterFinder vraptor;
 	
 	private ServletContext servletContext;
 
@@ -32,10 +35,7 @@ public class VRaptor implements Filter {
 		HttpServletResponse response = (HttpServletResponse) res;
 		
 		try {
-			
-			// invoke VRaptor
 			vraptor.execute(request, response, filterChain, servletContext);
-			
 		} catch (ServletException e) {
 			throw e;
 		} catch (IOException e) {
@@ -47,6 +47,7 @@ public class VRaptor implements Filter {
 	
 	@Override
 	public void init(FilterConfig config) throws ServletException {
+		logger.info("Starting up Vraptor 4. Ready to fly?");
 		servletContext = config.getServletContext();
 	}
 
