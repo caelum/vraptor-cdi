@@ -1,11 +1,14 @@
 package org.vraptor.impl.core;
 
-import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -46,23 +49,44 @@ public class RouterFinder {
 	}
 
 	public void execute(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, ServletContext servletContext) throws Exception {
-		String uri = StaticFunctions.requestUri(request, servletContext);
 		
-		if (fileExists(servletContext, uri)) {
-			logger.debug("[VRaptor] Delegating request container: " + uri);
-			filterChain.doFilter(request, response);
+		if (fileExists(request, servletContext)) {
+			deferToContainer(request, response, filterChain);
 			return;
 		}
 
 		try {
-			Route route = router.routeFor(uri);
-			executor.execute(request, response, servletContext, route);
+			deferToVRaptor(request, response, servletContext);
 		} catch (NotFoundException e) {
 			response.sendError(404);
 		}
 	}
 
-	private boolean fileExists(ServletContext servletContext, String uri) {
-		return !uri.equals("/") && new File(servletContext.getRealPath(uri)).exists();
+	private void deferToVRaptor(HttpServletRequest request,
+			HttpServletResponse response, ServletContext servletContext) {
+		String uri = StaticFunctions.requestUri(request, servletContext);
+		Route route = router.routeFor(uri);
+		executor.execute(request, response, servletContext, route);
 	}
+
+	private void deferToContainer(HttpServletRequest request,
+			HttpServletResponse response, FilterChain filterChain)
+			throws IOException, ServletException {
+		logger.debug("Deferring request to container: {} ", request.getRequestURI());
+		filterChain.doFilter(request, response);
+	}
+
+	private boolean fileExists(HttpServletRequest request, ServletContext context) throws MalformedURLException {
+		URL resourceUrl = context.getResource(uriRelativeToContextRoot(request));
+		return resourceUrl != null && isAFile(resourceUrl);
+	}
+
+	private String uriRelativeToContextRoot(HttpServletRequest request) {
+		return request.getRequestURI().substring(request.getContextPath().length());
+	}
+
+	private boolean isAFile(URL resourceUrl) {
+		return !resourceUrl.toString().endsWith("/");
+	}
+
 }

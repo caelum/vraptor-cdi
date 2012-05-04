@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Many ugly non-OO untestable static procedural functions .
- * @author sergio
+ * @author sergio lopes
  */
 public abstract class StaticFunctions {
 

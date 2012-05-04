@@ -20,6 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.vraptor.impl.core.RouterFinder;
 
+/**
+ * Basic vraptor entry point. Processes all requests.
+ * 
+ * @author guilherme silveira
+ * @author sergio lopes
+ */
 @WebFilter(displayName="vraptor4", urlPatterns="/*", dispatcherTypes={DispatcherType.FORWARD, DispatcherType.REQUEST})
 public class VRaptor implements Filter {
 	
@@ -27,7 +33,7 @@ public class VRaptor implements Filter {
 
 	@Inject private RouterFinder vraptor;
 	
-	private ServletContext servletContext;
+	private ServletContext context;
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException {
@@ -35,7 +41,7 @@ public class VRaptor implements Filter {
 		HttpServletResponse response = (HttpServletResponse) res;
 		
 		try {
-			vraptor.execute(request, response, filterChain, servletContext);
+			vraptor.execute(request, response, filterChain, context);
 		} catch (ServletException e) {
 			throw e;
 		} catch (IOException e) {
@@ -48,15 +54,16 @@ public class VRaptor implements Filter {
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		logger.info("Starting up Vraptor 4. Ready to fly?");
-		servletContext = config.getServletContext();
+		context = config.getServletContext();
 	}
 
 	@Produces @ApplicationScoped
 	public ServletContext produceServletContext() {
-		return servletContext;
+		return context;
 	}
 	
 	@Override
 	public void destroy() {
+		context = null;
 	}
 }
