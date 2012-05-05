@@ -30,23 +30,23 @@ import org.vraptor.impl.StaticFunctions;
 @ApplicationScoped
 public class RouterFinder {
 
-	private final Router router;
-	private final Executor executor;
+	private  Router router;
+	private Executor executor;
 	private final static Logger logger = LoggerFactory.getLogger(RouterFinder.class);
 
 	/**
 	 * Weld eyes only.
 	 */
-	protected RouterFinder() {
-		this(null, null);
+	public RouterFinder() {
+//		this(null, null);
 	}
 
-	@Inject
-	public RouterFinder(Router router, Executor executor) {
-		super();
-		this.router = router;
-		this.executor = executor;
-	}
+//	@Inject
+//	public RouterFinder(Router router, Executor executor) {
+//		super();
+//		this.router = router;
+//		this.executor = executor;
+//	}
 
 	public void execute(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, ServletContext servletContext) throws Exception {
 		

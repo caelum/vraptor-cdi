@@ -1,5 +1,6 @@
 package org.vraptor.impl;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,12 +10,16 @@ import javax.servlet.http.HttpServletRequest;
  */
 public abstract class StaticFunctions {
 
-	public static String requestUri(HttpServletRequest request, ServletContext servletContext) {
-		String uri = request.getRequestURI();
-		if (!servletContext.getContextPath().equals("/")) {
-			uri = uri.replaceFirst(servletContext.getContextPath(), "");
-		}
-		return uri;
+    public static String requestUri(HttpServletRequest request, ServletContext servletContext) {
+        String includeUri = (String) request.getAttribute(RequestDispatcher.INCLUDE_REQUEST_URI);
+		if (includeUri != null) {
+            return includeUri;
+        }
+		
+        String uri = request.getRequestURI().replaceFirst("(?i);jsessionid=.*$", "");
+        String contextName = request.getContextPath();
+        uri = uri.replaceFirst(contextName, "");
+        return uri;
 	}
 	
 }

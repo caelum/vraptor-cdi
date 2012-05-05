@@ -39,7 +39,9 @@ public class VRaptor implements Filter {
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
-		
+
+		logger.trace("Request: {} / Parameters: {}", req, req.getParameterMap());
+
 		try {
 			vraptor.execute(request, response, filterChain, context);
 		} catch (ServletException e) {
