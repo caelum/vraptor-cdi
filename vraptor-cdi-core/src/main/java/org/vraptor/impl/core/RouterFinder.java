@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletContext;
@@ -28,6 +29,7 @@ import org.vraptor.impl.StaticFunctions;
  * @author Andre Silva
  */
 @ApplicationScoped
+@Default
 public class RouterFinder {
 
 	private  Router router;
@@ -38,15 +40,15 @@ public class RouterFinder {
 	 * Weld eyes only.
 	 */
 	public RouterFinder() {
-//		this(null, null);
+		this(null, null);
 	}
 
-//	@Inject
-//	public RouterFinder(Router router, Executor executor) {
-//		super();
-//		this.router = router;
-//		this.executor = executor;
-//	}
+	@Inject
+	public RouterFinder(Router router, Executor executor) {
+		super();
+		this.router = router;
+		this.executor = executor;
+	}
 
 	public void execute(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, ServletContext servletContext) throws Exception {
 		

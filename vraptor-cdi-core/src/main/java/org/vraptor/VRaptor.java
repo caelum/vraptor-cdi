@@ -26,7 +26,8 @@ import org.vraptor.impl.core.RouterFinder;
  * @author guilherme silveira
  * @author sergio lopes
  */
-@WebFilter(displayName="vraptor4", urlPatterns="/*", dispatcherTypes={DispatcherType.FORWARD, DispatcherType.REQUEST})
+@WebFilter(displayName = "vraptor4", urlPatterns = "/*", dispatcherTypes = {
+		DispatcherType.FORWARD, DispatcherType.REQUEST })
 public class VRaptor implements Filter {
 	
 	private static final Logger logger = org.slf4j.LoggerFactory.getLogger(VRaptor.class);
